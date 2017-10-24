@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/lillypiri/Twitter-Interface#readme",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "moment": "^2.19.1",
     "object-values": "^1.0.0",

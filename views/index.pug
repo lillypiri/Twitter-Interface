@@ -7,7 +7,8 @@ block main
                 .circle--fluid--cell.circle--fluid--primary.align-bottom.app--tweet--post
                     .app--avatar(style=`background-image: url(${verifycred.profile_image_url_https})`)
                         img(src=verifycred.profile_image_url_https)
-                    textarea#tweet-textarea.circle--textarea--input(placeholder="What's happening?")
+                    textarea#tweet-textarea.circle--textarea--input(maxlength="140", placeholder="What's happening?")
+                    script(src='/static/js/tweet.js')
                     strong#tweet-char.app--tweet--char 140
                 .circle--fluid--cell.align-bottom
                     button.button-primary Tweet

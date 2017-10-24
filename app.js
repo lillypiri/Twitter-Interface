@@ -4,9 +4,11 @@ const config = require("./config");
 const app = express();
 const moment = require("moment");
 const objectValues = require('object-values');
+const bodyParser = require("body-parser");
 
 const T = new Twit(config);
 
+app.use(bodyParser.urlencoded());
 app.use("/static", express.static(__dirname + "/public"));
 app.set("view engine", "pug");
 
@@ -32,16 +34,23 @@ function groupMessages(userId, received, sent) {
 
   return objectValues(groups);
 }
-//q: "from:IAmTomNook"
 
+app.post("/tweet", (req, res) => {
+  T.post('statuses/update', { status: req.body.tweet }).then(response => {
+    res.json(response.data);
+  }).catch(error => {
+    // nothing
+  });
+});
 
 app.get("/", (req, res) => {
-  // Do all of the things at once
+  // First get the authenticated user's info so we can use their screenname to find tweets by them
   T.get("account/verify_credentials").then(verifyCred => {
     let context = {
       verifycred: verifyCred.data
     }
     const screenname = context.verifycred.screen_name;
+    // Do all of the things at once
     Promise.all([
       T.get("search/tweets", { q: screenname, count: 5 }),
       T.get("direct_messages", { count: 5 }),
@@ -62,9 +71,9 @@ app.get("/", (req, res) => {
         let context = {
           tweets: statusResponse.data.statuses,
           messages: groupMessages(
-            921234828749504500,
-            messageResponse.data,
-            sentMessageResponse.data
+          verifyCred.data.id,
+          messageResponse.data,
+          sentMessageResponse.data
           ),
           friends: friendResponse.data.users,
           verifycred: verifyCred.data,
@@ -81,4 +90,15 @@ app.get("/", (req, res) => {
 // run the server
 app.listen(7777, () => {
   console.log("Listening on 7777");
+});
+
+
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send("Sorry, something broke!");
+});
+
+
+app.get("*", function(req, res) {
+  res.status(404).send("Sorry, we couldn't find that page.");
 });
