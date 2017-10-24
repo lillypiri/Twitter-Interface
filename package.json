@@ -1,0 +1,30 @@
+{
+  "name": "twitter-interface",
+  "version": "1.0.0",
+  "description": "Twitter interface",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lillypiri/Twitter-Interface.git"
+  },
+  "keywords": [
+    "twitter"
+  ],
+  "author": "Lilly Piri",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lillypiri/Twitter-Interface/issues"
+  },
+  "homepage": "https://github.com/lillypiri/Twitter-Interface#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "moment": "^2.19.1",
+    "object-values": "^1.0.0",
+    "pug": "^2.0.0-rc.4",
+    "twit": "^2.2.9"
+  }
+}

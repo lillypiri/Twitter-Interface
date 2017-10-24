@@ -1,0 +1,25 @@
+extends index.pug
+
+block messages
+    .grid-33
+        .app--section
+            ul.app--message--list
+            each group in messages
+                li
+                    h3
+                        | Conversation with 
+                        a= group[0].sender.name
+                    ul.app--message--conversation
+                    each message in group
+                        if message.me
+                            li.app--message--me
+                                .app--avatar(style=`background-image: url(${message.recipient.profile_image_url_https})`)
+                                    img(src="/static/images/m-spore.png")
+                                p.app--message--text= message.text
+                                p.app--message--timestamp= message.created_at
+                        else
+                            li.app--message
+                                .app--avatar(style=`background-image: url(${message.sender.profile_image_url_https})`)
+                                    img(src=message.sender.profile_image_url_https)
+                                p.app--message--text= message.text
+                                p.app--message--timestamp= message.created_at
