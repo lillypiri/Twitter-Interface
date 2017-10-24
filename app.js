@@ -5,8 +5,6 @@ const app = express();
 const moment = require("moment");
 const objectValues = require('object-values');
 
-moment().format();
-
 const T = new Twit(config);
 
 app.use("/static", express.static(__dirname + "/public"));
@@ -39,9 +37,7 @@ function groupMessages(userId, received, sent) {
 
 app.get("/", (req, res) => {
   // Do all of the things at once
-  Promise.all([
-    T.get("account/verify_credentials"),
-  ]).then(([verifyCred]) => {
+  T.get("account/verify_credentials").then(verifyCred => {
     let context = {
       verifycred: verifyCred.data
     }
