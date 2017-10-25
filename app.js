@@ -36,11 +36,13 @@ function groupMessages(userId, received, sent) {
 }
 
 app.post("/tweet", (req, res) => {
-  T.post('statuses/update', { status: req.body.tweet }).then(response => {
-    res.json(response.data);
-  }).catch(error => {
-    // nothing
-  });
+  T.post("statuses/update", { status: req.body.tweet })
+    .then(response => {
+      res.render("tweet", { tweet: response.data, moment: require("moment") });
+    })
+    .catch(error => {
+      // nothing
+    });
 });
 
 app.get("/", (req, res) => {
