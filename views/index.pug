@@ -29,7 +29,7 @@ block main
                 ul.app--tweet--list
                     each tweet in tweets
                         li
-                            strong.app--tweet--timestamp= moment(tweet.created_at).fromNow()
+                            strong.app--tweet--timestamp= moment(Date.parse(tweet.created_at)).fromNow()
                             a.app--tweet--author
                                 .app--avatar(style=`background-image: url(${tweet.user.profile_image_url_https})`)
                                     img(src=tweet.user.profile_image_url_https)
@@ -71,7 +71,7 @@ block main
                                 .circle--fluid--cell.circle--fluid--primary
                                     a.app--tweet--author
                                         .app--avatar(style=`background-image: url(${friend.profile_image_url_https})`)
-                                            img(src="/static/images/f-spore.png")
+                                            img(src=friend.profile_image_url_https)
                                         h4= friend.name
                                         p= friend.screen_name
                                 .circle--fluid--cell
@@ -91,10 +91,10 @@ block main
                                             .app--avatar(style=`background-image: url(${verifycred.profile_image_url_https})`)
                                                 img(src=verifycred.profile_image_url_https)
                                             p.app--message--text= message.text
-                                            p.app--message--timestamp= moment(message.created_at).fromNow()
+                                            p.app--message--timestamp= moment(Date.parse(message.created_at)).fromNow()
                                     else
                                         li.app--message
                                             .app--avatar(style=`background-image: url(${message.sender.profile_image_url_https})`)
                                                 img(src=message.sender.profile_image_url_https)
                                             p.app--message--text= message.text
-                                            p.app--message--timestamp= moment(message.created_at).fromNow()
+                                            p.app--message--timestamp= moment(Date.parse(message.created_at)).fromNow()

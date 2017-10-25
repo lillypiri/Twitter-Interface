@@ -8,7 +8,7 @@ const bodyParser = require("body-parser");
 
 const T = new Twit(config);
 
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/static", express.static(__dirname + "/public"));
 app.set("view engine", "pug");
 
@@ -41,7 +41,7 @@ app.post("/tweet", (req, res) => {
       res.render("tweet", { tweet: response.data, moment: require("moment") });
     })
     .catch(error => {
-      // nothing
+      throw error
     });
 });
 
@@ -82,10 +82,12 @@ app.get("/", (req, res) => {
           moment: require("moment")
         };
         res.render("index", context);
-        // // Dump the context to the screen (view source to see it nicely formatted)
-        // res.send(JSON.stringify(context, null, 4));
       }
-    );
+    ).catch(error => {
+      throw error
+    })
+  }).catch(error => {
+    throw error
   })   
 });
 
@@ -94,7 +96,7 @@ app.listen(7777, () => {
   console.log("Listening on 7777");
 });
 
-
+// show errors if something goes wrong 
 app.use(function(err, req, res, next) {
   console.error(err.stack);
   res.status(500).send("Sorry, something broke!");

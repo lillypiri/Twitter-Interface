@@ -1,5 +1,5 @@
 li
-  strong.app--tweet--timestamp= moment(tweet.created_at).fromNow()
+  strong.app--tweet--timestamp= moment(Date.parse(tweet.created_at)).fromNow()
   a.app--tweet--author
       .app--avatar(style=`background-image: url(${tweet.user.profile_image_url_https})`)
           img(src=tweet.user.profile_image_url_https)
