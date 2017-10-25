@@ -1,6 +1,6 @@
 $(document).ready(function() {
   var $tweetForm = $("form");
-// when the form submits, post to the server which will return the new tweet as a html fragment
+// When the form submits, post to the server which will return the new tweet as an HTML fragment
   $tweetForm.on("submit", function(e) {
     e.preventDefault();
     e.stopPropagation();

@@ -18,13 +18,13 @@ function groupMessages(userId, received, sent) {
   let groups = {};
 
   allMessages.forEach(message => {
-    // if we sent it, group is the recipient
+    // If we sent it, group is the recipient
     if (message.sender_id === userId) {
       message.me = true;
       groups[message.recipient_id] = groups[message.recipient_id] || [];
       groups[message.recipient_id].push(message);
 
-    // if we received it, group is the sender
+    // If we received it, group is the sender
     } else {
       message.me = false;
       groups[message.sender_id] = groups[message.sender_id] || [];
@@ -91,12 +91,12 @@ app.get("/", (req, res) => {
   })   
 });
 
-// run the server
+// Run the server
 app.listen(7777, () => {
   console.log("Listening on 7777");
 });
 
-// show errors if something goes wrong 
+// Show errors if something goes wrong 
 app.use(function(err, req, res, next) {
   console.error(err.stack);
   res.status(500).send("Sorry, something broke!");
