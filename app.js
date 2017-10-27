@@ -52,9 +52,10 @@ app.get("/", (req, res) => {
       verifycred: verifyCred.data
     }
     const screenname = context.verifycred.screen_name;
+
     // Do all of the things at once
     Promise.all([
-      T.get("search/tweets", { q: screenname, count: 5 }),
+      T.get("statuses/user_timeline", { q: screenname, count: 5 }),
       T.get("direct_messages", { count: 5 }),
       T.get("direct_messages/sent", { count: 5 }),
       T.get("friends/list", { count: 5 }),
@@ -71,7 +72,7 @@ app.get("/", (req, res) => {
       ) => {
         // Merge them into an object that the Pug view can use
         let context = {
-          tweets: statusResponse.data.statuses,
+          tweets: statusResponse.data,
           messages: groupMessages(
           verifyCred.data.id,
           messageResponse.data,
